@@ -16,7 +16,19 @@ use Inertia\Inertia;
 |
 */
 
+
+
 Route::get('/', function () {
+    return Inertia::render('User/Home');
+})->name('home');
+
+Route::prefix('home')->name('home.')->group(function () {
+    Route::get('/menu', function () {
+        return Inertia::render('User/Menu');
+    })->name('menu');
+});
+
+Route::get('/login', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
