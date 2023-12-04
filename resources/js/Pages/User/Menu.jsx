@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { useState } from 'react'
 import { Parallax } from 'react-parallax';
@@ -13,15 +13,26 @@ import { FaGlassMartiniAlt, FaCoffee, FaCookieBite, FaConciergeBell } from 'reac
 import CardMenu from '@/Components/Public/CardMenu';
 
 
-export default function Menus() {
+const Menu = ({ menus }) => {
+
     useEffect(() => {
         AOS.init();
         AOS.refresh();
     }, []);
+
     const [activeTab, setActiveTab] = useState(0);
 
+
     const handleTabClick = (index) => {
+
+
+        console.log(index);
+
+        router.get('/home/menu/', { params: index });
+
         setActiveTab(index);
+
+
     };
     return (
         <>
@@ -47,30 +58,21 @@ export default function Menus() {
                         </ul>
                     </nav>
 
-                    {activeTab === 0 && (
-                        // <MenuCoffee />
-                        <div className="list-menu">
-                            <CardMenu name="Latte" price="50K" alt="Coffee Latte" />
-                        </div>
-                    )}
-                    {activeTab === 1 && (
-                        // <MenuNonCoffee />
-                        <h1>hallo2</h1>
 
-                    )}
-                    {activeTab === 2 && (
-                        // <MenuLunch />
-                        <h1>hallo3</h1>
+                    <div className="list-menu" >
+                        {menus.map((menu, index) =>
+                            <div className="col-menu" data-aos="fade-up" key={index}>
+                                <CardMenu name={menu.name} price={menu.price} alt={menu.name} img={menu.image} />
+                            </div>
+                        )}
+                    </div>
 
-                    )}
-                    {activeTab === 3 && (
-                        // <MenuMore />
-                        <h1>hallo4</h1>
 
-                    )}
                 </div>
 
             </div >
         </>
     )
 }
+
+export default Menu;

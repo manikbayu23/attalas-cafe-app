@@ -304,6 +304,7 @@ body {
     align-items: center;
     overflow: hidden;
     position: relative;
+    height: 20rem;
 }
 
 .col-menu .card-menu .overlay-card {
